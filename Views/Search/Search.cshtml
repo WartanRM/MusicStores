@@ -1,0 +1,60 @@
+﻿@model IEnumerable<SingASong.com.Models.ViewModels.Catalogue>
+
+<style>
+    header {
+        background-color: black;
+        color: white;
+        padding: 10px;
+        text-align: center;
+        position: relative;
+    }
+
+    .go-back-btn {
+        top: 70px;
+        padding-bottom: 20px;
+        margin-left: 0;
+        text-decoration: none;
+        color: black;
+        font-size: 16px;
+    }
+</style>
+
+<a asp-controller="Home" asp-action="Index" class="go-back-btn">&lt; Go Back</a>
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-controller="Catalogue" asp-action="GetTracks" method="get">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Search by title, artist, album, or year" name="query">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 cards mt-10" style="padding-top:20px;">
+    @if (Model.Any())
+    {
+        @foreach (var track in Model)
+        {
+            <div class="col mb-4">
+                <div class="card">
+                    <img class="card-img-top" src="~/Images/album/album.jpg" alt="album track">
+                    <div class="card-body">
+                        <h5 class="card-title">@track.GetTrackbyTitle</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@track.GetTrackbyArtist</h6>
+                        <p class="card-text">@track.GetTrackbyAlbum</p>
+                        <button class="btn btn-dark card-link">Add To Cart</button>
+                        <button class="btn btn-outline-dark card-link">Buy</button>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="col">
+            <p class="text-center">No results found.</p>
+        </div>
+    }
+</div>
